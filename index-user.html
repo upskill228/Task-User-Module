@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="icon" type="image/x-icon" href="imagens/favicon-user.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="style-user.css">
+    <script type="module" src="dist/main.js"></script>
+</head>
+<body>
+    <main>
+    <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo-title">
+                <i class="fa-solid fa-user"></i>
+                <h1>User Management</h1>
+            </div>
+            <!-- Add User Form -->
+            <div class="add-user">
+                <h2>Register a new user</h2>
+                <form class="user-form" action="">
+                    <fieldset>
+                        <label for="userName">Username:<span aria-hidden="true"> *</span></label>
+                        <input type="text" id="userName" name="userName" placeholder="John Doe" required>
+                    </fieldset>
+                    <fieldset>
+                        <label for="userEmail">Email:<span aria-hidden="true"> *</span></label>
+                        <input type="email" id="userEmail" name="userEmail" placeholder="johndoe@email.com" required>
+                    </fieldset>
+                    <p id="formError"></p>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <!-- Filter Buttons-->
+            <div class="btn-container">
+                <h2>Filter Users</h2>
+                    <button id="showActive">Active Users</button>
+                    <button id="showInactive">Inactive Users</button>
+                    <button type="button" id="btnOrder">Order A-Z</button>
+            </div>
+            <!-- Stats -->
+            <p id="userStats"></p>
+        </aside>
+        <!-- CARDS CONTAINER -->
+        <section class="cards-container">
+                <!-- Search -->
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchUser" placeholder="Search user..." aria-label="Search user by name">
+                    <button type="button" class="clear-search" aria-label="Clear search">&times;</button>
+                </div>
+            <div id="container">
+            </div>
+        </section>
+    </main>
+     <!-- MODAL - MORE INFO -->
+    <div
+        id="infoModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button id="infoClose" aria-label="Close">&times;</button>
+            <h4 id="modalTitle">User Details</h4>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+</body>
+</html>

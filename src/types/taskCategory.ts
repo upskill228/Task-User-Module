@@ -1,0 +1,1 @@
+export type TaskCategory = 'Work' | 'Personal' | 'Study';
