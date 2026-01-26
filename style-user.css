@@ -32,6 +32,22 @@ main {
     min-height: 100svh;
 }
 
+/*** CHANGE VISIBILITY ***/
+#user-sidebar,
+#task-sidebar,
+#user-site,
+#task-site {
+  display: none;
+}
+
+#user-sidebar.active,
+#task-sidebar.active,
+#user-site.active,
+#task-site.active {
+  display: flex;
+}
+
+/* SIDEBAR */
 .sidebar {
     width: 360px;
     height: 100svh;

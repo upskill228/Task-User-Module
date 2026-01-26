@@ -8,31 +8,31 @@ import { setOnFormChange } from "./ui/userForm.js";
 // IMPORT - TASKS
 import { renderTasks, updateTaskButtonsText, setOnChange as setOnTaskChange } from "./ui/renderTask.js";
 
+//IMPORT NAVIGATION
+import { initNavigation } from "./ui/navigation.js";
+
 // FUNCTIONS - USERS
-const userContainer = document.querySelector("#userSection");
-        if (userContainer) {
-        function refreshUI() {
-            renderUsers(getVisibleUsers());
-            updateButtonsText();
-            renderStatistics(statistics());
-        }
+function refreshUI() {
+    renderUsers(getVisibleUsers());
+    updateButtonsText();
+    renderStatistics(statistics());
+    }
 
-        setOnUserChange(refreshUI);
-        setOnFormChange(refreshUI);
+    setOnUserChange(refreshUI);
+    setOnFormChange(refreshUI);
 
-        loadInitialUsers();
-        refreshUI();
-}
+    loadInitialUsers();
+    refreshUI();
 
 // FUNCTIONS - TASKS
-const taskContainer = document.querySelector("#taskSection");
-if (taskContainer) {
-        function refreshTasksUI() {
-            renderTasks();
-            updateTaskButtonsText();
-        }
-
-        setOnTaskChange(refreshTasksUI);
-
-        refreshTasksUI();
+function refreshTasksUI() {
+    renderTasks();
+    updateTaskButtonsText();
 }
+
+    setOnTaskChange(refreshTasksUI);
+
+    refreshTasksUI();
+
+// NAVIGATION
+initNavigation();

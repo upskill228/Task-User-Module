@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User & Task Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="dist/main.js"></script>
+</head>
+<body>
+    <header>
+        <button id="btnUsers" class="btns-header">
+            <i class="fa-solid fa-user" title="Users"></i>
+        </button>
+        <button id="btnTasks" class="btns-header">
+            <i class="fa-solid fa-list-check" title="Tasks"></i>
+        </button>
+    </header>
+    <main>
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <div id="user-sidebar" class="active">
+                    <div class="logo-title">
+                        <i class="fa-solid fa-user"></i>
+                        <h1>User Management</h1>
+                    </div>
+                    <!-- Add User Form -->
+                    <div class="add-user">
+                        <h2>Register a new user</h2>
+                        <form class="user-form" action="">
+                            <fieldset>
+                                <label for="userName">Username:<span aria-hidden="true"> *</span></label>
+                                <input type="text" id="userName" name="userName" placeholder="John Doe" required>
+                            </fieldset>
+                            <fieldset>
+                                <label for="userEmail">Email:<span aria-hidden="true"> *</span></label>
+                                <input type="email" id="userEmail" name="userEmail" placeholder="johndoe@email.com" required>
+                            </fieldset>
+                            <p id="formError"></p>
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+                    <!-- Filter Buttons-->
+                    <div class="btn-container">
+                        <h2>Filter Users</h2>
+                            <button id="showActive">Active Users</button>
+                            <button id="showInactive">Inactive Users</button>
+                            <button type="button" id="btnOrder">Order A-Z</button>
+                    </div>
+                    <!-- Stats -->
+                    <p id="userStats"></p>
+                </div>
+                <div id="task-sidebar">
+                    <!-- Title -->
+                    <div class="logo-title">
+                        <i class="fa-solid fa-list-check"></i>
+                        <h2>Task Management</h2>
+                    </div>
+                    <!-- Add Task -->
+                    <div class="add-task">
+                        <h3>New Task:</h3>
+                        <form class="taskForm" action="">
+                            <label for="inputTask">Write here your next task:<span aria-hidden="true"> *</span></label>
+                            <input type="text" id="inputTask" name="inputTask" placeholder="Task" required="">
+                            <select id="category" name="category" autocomplete="off" required>
+                                <option value="" disabled selected hidden>
+                                Select a category:
+                                </option>
+                                <option value="Work">Work</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Study">Study</option>
+                            </select>
+                            <p id="taskFormError"></p>
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+                    <!-- Filters -->
+                    <div class="btn-container">
+                        <h3>Filter Tasks</h3>
+                        <button type="button" id="btnShowPending">Pending</button>
+                        <button type="button" id="btnShowCompleted">Completed</button>
+                        <button type="button" id="btnOrder">Order A-Z</button>
+                        <button type="button" id="btnClearCompleted">Clear Completed</button>
+                    </div>
+                    <!-- Stats -->
+                    <p id="countPendingTasks">Pending Tasks: 0</p>
+                </div>
+            </aside>
+        <section id="user-site" class="active">
+            <!-- CARDS CONTAINER -->
+            <section class="cards-container">
+                    <!-- Search -->
+                    <div class="search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchUser" placeholder="Search user..." aria-label="Search user by name">
+                        <button type="button" class="clear-search" aria-label="Clear search">&times;</button>
+                    </div>
+                <div id="container">
+                </div>
+            </section>
+        </section>
+        <section id="task-site">
+            <section class="cards-container">
+                <h1>TO DO LIST</h1>
+                <!-- Search -->
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input
+                        type="text"
+                        id="searchTask"
+                        placeholder="Search task by title..."
+                        aria-label="Search task by title"
+                    />
+                    <button type="button" class="clear-search" aria-label="Clear search">&times;</button>
+                </div>
+                <!-- Task List -->
+                <ul id="taskListUl"></ul>
+            </section>
+        </section>
+    </main>
+     <!-- MODAL - MORE INFO -->
+    <div
+        id="infoModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+        <div class="modal-content">
+            <button id="infoClose" aria-label="Close">&times;</button>
+            <h4 id="modalTitle">User Details</h4>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+</body>
+</html>
