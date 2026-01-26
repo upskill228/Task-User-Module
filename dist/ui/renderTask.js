@@ -41,7 +41,7 @@ export function addTaskButtons(task) {
     delBtn.type = "button";
     delBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     delBtn.addEventListener("click", () => {
-        deleteTask(task.id);
+        deleteTask(task.getId());
         onChange === null || onChange === void 0 ? void 0 : onChange();
     });
     container.append(checkBtn, editBtn, delBtn);

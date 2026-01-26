@@ -1,16 +1,17 @@
 import { UserClass } from "../models/user.js";
+import { UserRole } from "../security/UserRole.js"; // <<-- ESSENCIAL
 // ARRAY
 let userList = [
-    new UserClass(1, "Chris", "chris@email.com"),
-    new UserClass(2, "Anna", "ana@email.com"),
-    new UserClass(3, "Allison", "allison@email.com", false)
+    new UserClass(1, "Chris", "chris@email.com", UserRole.MEMBER),
+    new UserClass(2, "Anna", "ana@email.com", UserRole.ADMIN),
+    new UserClass(3, "Allison", "allison@email.com", UserRole.MEMBER, false)
 ];
 // STATE
 let currentFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
 let nextId = userList.length > 0
-    ? Math.max(...userList.map(u => u.id)) + 1
+    ? Math.max(...userList.map(u => u.getId())) + 1
     : 1;
 // SET & GET
 export function setFilter(filter) {
@@ -37,14 +38,13 @@ export function getUserList() {
 }
 export function loadInitialUsers() {
     const initialData = [
-        { name: "Mark", email: "mark@email.com" },
-        { name: "Sophia", email: "sophia@email.com", active: false },
-        { name: "Brian", email: "brian@email.com", },
-        { name: "Diana", email: "diana@email.com", active: false }
+        { name: "Mark", email: "mark@email.com", role: UserRole.MEMBER, active: true },
+        { name: "Sophia", email: "sophia@email.com", role: UserRole.ADMIN, active: false },
+        { name: "Brian", email: "brian@email.com", role: UserRole.MEMBER, active: true },
+        { name: "Diana", email: "diana@email.com", role: UserRole.MEMBER, active: false }
     ];
     const newUsers = initialData.map(data => {
-        const user = new UserClass(nextId, data.name, data.email, data.active);
-        nextId++;
+        const user = new UserClass(nextId++, data.name, data.email, data.role, data.active);
         return user;
     });
     userList = [...userList, ...newUsers];
@@ -83,14 +83,14 @@ export function statistics() {
 }
 // USER FUNCTIONS
 export function deleteUser(id) {
-    userList = userList.filter(u => u.id !== id);
+    userList = userList.filter(u => u.getId() !== id);
 }
 export function toggleUserActive(id) {
-    const user = userList.find(u => u.id === id);
+    const user = userList.find(u => u.getId() === id);
     if (user)
         user.toggleActive();
 }
-export function addUser(name, email) {
-    const user = new UserClass(nextId++, name, email);
+export function addUser(name, email, role = UserRole.MEMBER) {
+    const user = new UserClass(nextId++, name, email, role);
     userList.push(user);
 }

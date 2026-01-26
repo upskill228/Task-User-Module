@@ -50,7 +50,7 @@ export function addTaskButtons(task: ITask): HTMLDivElement {
     delBtn.type = "button";
     delBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     delBtn.addEventListener("click", () => {
-        deleteTask(task.id);
+        deleteTask(task.getId());
 
         onChange?.();
     });

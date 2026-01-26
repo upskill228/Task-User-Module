@@ -77,7 +77,7 @@ export function createDeactivateButton(user: IUser): HTMLButtonElement {
 
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        toggleUserActive(user.id);
+        toggleUserActive(user.getId());
         onChange?.();
     });
 
@@ -91,7 +91,7 @@ export function addDeleteButton(user: IUser): HTMLButtonElement {
 
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        deleteUser(user.id);
+        deleteUser(user.getId());
 
         onChange?.();;
     });
@@ -106,7 +106,7 @@ export function createUserCard(user: IUser): HTMLDivElement {
 
     // Elements
     const userId = document.createElement("p");
-    userId.textContent = `ID: ${user.id}`;
+    userId.textContent = `ID: ${user.getId()}`;
     userId.classList.add("user-id");
 
     const name = document.createElement("h3");

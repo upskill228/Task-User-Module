@@ -6,7 +6,7 @@ let taskList = [
     new TaskClass(3, "This is a mock task and a half", "Work"),
 ];
 // STATE
-let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.id)) + 1 : 1;
+let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.getId())) + 1 : 1;
 let currentFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
@@ -61,7 +61,7 @@ export function addTask(title, category) {
 }
 ;
 export function deleteTask(id) {
-    taskList = taskList.filter(t => t.id !== id);
+    taskList = taskList.filter(t => t.getId() !== id);
 }
 export function clearCompletedTasks() {
     taskList = taskList.filter(t => !t.completed);

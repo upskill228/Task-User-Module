@@ -11,7 +11,7 @@ let taskList: ITask[] = [
 ];
 
 // STATE
-let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.id)) + 1 : 1;
+let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.getId())) + 1 : 1;
 let currentFilter: TaskFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
@@ -67,7 +67,7 @@ export function addTask(title: string, category: TaskCategory): void {
 };
 
 export function deleteTask(id: number) {
-    taskList = taskList.filter(t => t.id !== id);
+    taskList = taskList.filter(t => t.getId() !== id);
 }
 
 export function clearCompletedTasks() {
