@@ -1,4 +1,4 @@
-import { BaseEntity } from "./BaseEntity.js";
+import { BaseEntity } from './BaseEntity.js';
 export class UserClass extends BaseEntity {
     constructor(id, email, role, active = true) {
         super(id);

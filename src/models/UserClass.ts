@@ -1,4 +1,4 @@
-import { BaseEntity } from "./BaseEntity.js";
+import { BaseEntity } from './BaseEntity.js';
 import { UserRole } from '../security/UserRole.js';
 
 export class UserClass extends BaseEntity {
