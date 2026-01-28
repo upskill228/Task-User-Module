@@ -1,20 +1,18 @@
-
 // taskId -> timestamp
-const deadlines: Record<number, number> = {};
+const deadlines = new Map<number, number>();
 
 function getNow(): number {
     return Date.now();
 }
 
 export function setDeadline(taskId: number, date: Date): void {
-    deadlines[taskId] = date.getTime();
+    deadlines.set(taskId, date.getTime());
 }
 
-
 export function isExpired(taskId: number): boolean {
-    const deadline = deadlines[taskId];
+    const deadline = deadlines.get(taskId);
 
-    // Se não existir deadline, não está expirada
+    // If it doesn't have a deadline, it isn't expired
     if (deadline === undefined) return false;
 
     return deadline < getNow();
@@ -22,12 +20,11 @@ export function isExpired(taskId: number): boolean {
 
 export function getExpiredTasks(): number[] {
     const expiredTasks: number[] = [];
+    const now = getNow();
 
-    for (const taskId in deadlines) {
-        const deadline = deadlines[taskId];
-
-        if (deadline < getNow()) {
-            expiredTasks.push(Number(taskId));
+    for (const [taskId, deadline] of deadlines) {
+        if (deadline < now) {
+            expiredTasks.push(taskId);
         }
     }
 
