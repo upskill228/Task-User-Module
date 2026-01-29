@@ -5,6 +5,7 @@ export interface ITask {
     title: string;
     completed: boolean;
     status: TaskStatus;
+    assignedUserIds?: number[];
 
     getType(): string;
     moveTo(status: TaskStatus): void;

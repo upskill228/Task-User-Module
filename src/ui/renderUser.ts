@@ -1,4 +1,4 @@
-import { IUser } from "../models/user.js";
+import { User } from "../models/user.js";
 import { setFilter, getFilter, setSearchTerm, setIsOrderedAZ, getIsOrderedAZ, deleteUser, toggleUserActive } from "../services/userService.js";
 import { openUserModal } from "./modalUser.js";
 
@@ -70,28 +70,28 @@ export function getTasksElement(): HTMLParagraphElement {
     return p;
 }
 
-export function createDeactivateButton(user: IUser): HTMLButtonElement {
+export function createDeactivateButton(user: User): HTMLButtonElement {
     const btn = document.createElement("button");
     btn.textContent = user.active ? "Deactivate" : "Activate";
     btn.classList.add("btn-status", user.active ? "active" : "inactive");
 
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        toggleUserActive(user.getId());
+        toggleUserActive(user.id);
         onChange?.();
     });
 
     return btn;
 }
 
-export function addDeleteButton(user: IUser): HTMLButtonElement {
+export function addDeleteButton(user: User): HTMLButtonElement {
     const btn = document.createElement("button");
     btn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     btn.classList.add("btnDelete");
 
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        deleteUser(user.getId());
+        deleteUser(user.id);
 
         onChange?.();;
     });
@@ -99,14 +99,14 @@ export function addDeleteButton(user: IUser): HTMLButtonElement {
     return btn;
 }
 
-export function createUserCard(user: IUser): HTMLDivElement {
+export function createUserCard(user: User): HTMLDivElement {
     const card = document.createElement("div");
     card.classList.add("card");
     if (!user.active) card.classList.add("inactive");
 
     // Elements
     const userId = document.createElement("p");
-    userId.textContent = `ID: ${user.getId()}`;
+    userId.textContent = `ID: ${user.id}`;
     userId.classList.add("user-id");
 
     const name = document.createElement("h3");
@@ -146,7 +146,7 @@ export function createUserCard(user: IUser): HTMLDivElement {
 }
 
 //RENDER
-export function renderUsers(users: IUser[]): void {
+export function renderUsers(users: User[]): void {
     container.innerHTML = "";
 
     if (users.length === 0) {

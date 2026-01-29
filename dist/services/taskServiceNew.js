@@ -1,9 +1,9 @@
-import { TaskClass } from "../models/task.js";
+import { TaskClass } from "../tasks/TaskClass.js";
 // ARRAY
 let taskList = [
-    new TaskClass(1, "This is my first made-up task", "Study"),
-    new TaskClass(2, "Mock task number 2", "Work"),
-    new TaskClass(3, "This is a mock task and a half", "Work"),
+    new TaskClass(1, "This is my first made-up task"),
+    new TaskClass(2, "Mock task number 2"),
+    new TaskClass(3, "This is a mock task and a half"),
 ];
 // STATE
 let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.id)) + 1 : 1;
@@ -55,11 +55,10 @@ export function getVisibleTasks() {
     }
     return tasks;
 }
-export function addTask(title, category) {
-    const newTask = new TaskClass(nextId++, title, category);
+export function addTask(title) {
+    const newTask = new TaskClass(nextId++, title);
     taskList.push(newTask);
 }
-;
 export function deleteTask(id) {
     taskList = taskList.filter(t => t.id !== id);
 }

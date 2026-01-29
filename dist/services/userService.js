@@ -11,7 +11,7 @@ let currentFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
 let nextId = userList.length > 0
-    ? Math.max(...userList.map(u => u.getId())) + 1
+    ? Math.max(...userList.map(u => u.id)) + 1
     : 1;
 // SET & GET
 export function setFilter(filter) {
@@ -83,10 +83,10 @@ export function statistics() {
 }
 // USER FUNCTIONS
 export function deleteUser(id) {
-    userList = userList.filter(u => u.getId() !== id);
+    userList = userList.filter(u => u.id !== id);
 }
 export function toggleUserActive(id) {
-    const user = userList.find(u => u.getId() === id);
+    const user = userList.find(u => u.id === id);
     if (user)
         user.toggleActive();
 }

@@ -1,17 +1,17 @@
 import { TaskFilter } from "../types/taskFilter.js";
-import { ITask } from "../models/task.js";
+import { Task } from "../models/task.js";
 import { TaskClass } from "../models/task.js";
 import { TaskCategory } from "../types/taskCategory.js";
 
 // ARRAY
-let taskList: ITask[] = [
+let taskList: Task[] = [
     new TaskClass(1, "This is my first made-up task", "Study"),
     new TaskClass(2, "Mock task number 2", "Work"),
     new TaskClass(3, "This is a mock task and a half", "Work"),
 ];
 
 // STATE
-let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.getId())) + 1 : 1;
+let nextId = taskList.length > 0 ? Math.max(...taskList.map(t => t.id)) + 1 : 1;
 let currentFilter: TaskFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
@@ -41,12 +41,12 @@ export function getIsOrderedAZ(): boolean {
     return isOrderedAZ;
 };
 
-export function getTaskList(): ITask[] {
+export function getTaskList(): Task[] {
     return [...taskList]; // evita mutações acidentais
 };
 
 // TASKS
-export function getVisibleTasks(): ITask[] {
+export function getVisibleTasks(): Task[] {
     let tasks = taskList.filter(task => {
         if (currentFilter === "pending" && task.completed) return false;
         if (currentFilter === "completed" && !task.completed) return false;
@@ -67,7 +67,7 @@ export function addTask(title: string, category: TaskCategory): void {
 };
 
 export function deleteTask(id: number) {
-    taskList = taskList.filter(t => t.getId() !== id);
+    taskList = taskList.filter(t => t.id !== id);
 }
 
 export function clearCompletedTasks() {

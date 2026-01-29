@@ -1,8 +1,7 @@
-import { BaseEntity } from "./BaseEntity.js";
 // CLASS
-export class TaskClass extends BaseEntity {
+export class TaskClass {
     constructor(id, title, category) {
-        super(id);
+        this.id = id;
         this.title = title;
         this.completed = false;
         this.category = category;

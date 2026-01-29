@@ -1,12 +1,10 @@
-import { BaseEntity } from "./BaseEntity.js";
 import { TaskCategory } from "../types/taskCategory.js";
 
-export interface ITask {
-    getId(): number;
+export interface Task {
+    id: number;
     title: string;
     completed: boolean;
     category: TaskCategory;
-    getCreatedAt(): Date;
     conclusionDate?: Date;
 
     toggleCompleted(): void;
@@ -14,14 +12,15 @@ export interface ITask {
 }
 
 // CLASS
-export class TaskClass extends BaseEntity implements ITask {
+export class TaskClass implements Task {
+    id: number;
     title: string;
     completed: boolean;
     category: TaskCategory;
     conclusionDate?: Date;
 
     constructor(id: number, title: string, category: TaskCategory) {
-        super(id);
+        this.id = id;
         this.title = title;
         this.completed = false;
         this.category = category;

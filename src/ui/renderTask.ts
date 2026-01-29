@@ -1,4 +1,4 @@
-import { ITask } from "../models/task.js";
+import { Task } from "../models/task.js";
 import { getFilter, setFilter, getSearchTerm, setSearchTerm, getIsOrderedAZ, toggleOrderAZ, getVisibleTasks, deleteTask, clearCompletedTasks } from "../services/taskService.js";
 import { renderStats } from "./taskStats.js";
 
@@ -25,7 +25,7 @@ export function updateTaskButtonsText(): void {
     btnOrder.textContent = getIsOrderedAZ() ? "Original Order" : "Order A-Z";
 }
 
-export function addTaskButtons(task: ITask): HTMLDivElement {
+export function addTaskButtons(task: Task): HTMLDivElement {
     const container = document.createElement("div");
     container.classList.add("task-actions");
 
@@ -50,7 +50,7 @@ export function addTaskButtons(task: ITask): HTMLDivElement {
     delBtn.type = "button";
     delBtn.innerHTML = `<i class="fa-solid fa-trash-can"></i>`;
     delBtn.addEventListener("click", () => {
-        deleteTask(task.getId());
+        deleteTask(task.id);
 
         onChange?.();
     });
@@ -59,7 +59,7 @@ export function addTaskButtons(task: ITask): HTMLDivElement {
     return container;
 }
 
-export function createTaskLi(task: ITask): HTMLLIElement {
+export function createTaskLi(task: Task): HTMLLIElement {
     const li = document.createElement("li");
     li.className = `task-item ${task.category.toLowerCase()} ${task.completed ? "completed" : ""}`;
 

@@ -1,4 +1,4 @@
-import { getTaskList } from "./taskService-new.js";
+import { getTaskList } from "./taskServiceNew.js";
 //Search tasks by title
 export function searchByTitle(text) {
     const term = text.toLowerCase();
@@ -6,9 +6,7 @@ export function searchByTitle(text) {
 }
 //Search tasks by userId
 export function searchByUser(userId) {
-    return getTaskList().filter(
-    // @ts-ignore — caso o userId não esteja tipado ainda
-    task => task.userId === userId);
+    return getTaskList().filter(task => { var _a; return (_a = task.assignedUserIds) === null || _a === void 0 ? void 0 : _a.includes(userId); });
 }
 // Search tasks by status
 export function searchByStatus(status) {

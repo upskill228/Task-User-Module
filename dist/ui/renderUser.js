@@ -58,7 +58,7 @@ export function createDeactivateButton(user) {
     btn.classList.add("btn-status", user.active ? "active" : "inactive");
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        toggleUserActive(user.getId());
+        toggleUserActive(user.id);
         onChange === null || onChange === void 0 ? void 0 : onChange();
     });
     return btn;
@@ -69,7 +69,7 @@ export function addDeleteButton(user) {
     btn.classList.add("btnDelete");
     btn.addEventListener("click", e => {
         e.stopPropagation();
-        deleteUser(user.getId());
+        deleteUser(user.id);
         onChange === null || onChange === void 0 ? void 0 : onChange();
         ;
     });
@@ -82,7 +82,7 @@ export function createUserCard(user) {
         card.classList.add("inactive");
     // Elements
     const userId = document.createElement("p");
-    userId.textContent = `ID: ${user.getId()}`;
+    userId.textContent = `ID: ${user.id}`;
     userId.classList.add("user-id");
     const name = document.createElement("h3");
     name.textContent = user.name;

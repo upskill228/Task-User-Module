@@ -1,4 +1,4 @@
-import { getTaskList } from "./taskService-new.js";
+import { getTaskList } from "./taskServiceNew.js";
 import { ITask } from "../tasks/ITask.js";
 import { TaskStatus } from "../tasks/TaskStatus.js";
 
@@ -13,11 +13,9 @@ export function searchByTitle(text: string): ITask[] {
 
 //Search tasks by userId
 export function searchByUser(userId: number): ITask[] {
-    return getTaskList().filter(
-        // @ts-ignore — caso o userId não esteja tipado ainda
-        task => task.userId === userId
-    );
+    return getTaskList().filter(task => task.assignedUserIds?.includes(userId));
 }
+
 // Search tasks by status
 export function searchByStatus(status: TaskStatus): ITask[] {
     return getTaskList().filter(task => task.status === status);

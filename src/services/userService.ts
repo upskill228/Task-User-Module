@@ -1,10 +1,10 @@
 import { UserFilter } from "../types/userFilter.js";
-import { IUser } from "../models/user.js";
+import { User } from "../models/user.js";
 import { UserClass } from "../models/user.js";
 import { UserRole } from "../security/UserRole.js"; // <<-- ESSENCIAL
 
 // ARRAY
-let userList: IUser[] = [
+let userList: User[] = [
     new UserClass(1, "Chris", "chris@email.com", UserRole.MEMBER),
     new UserClass(2, "Anna", "ana@email.com", UserRole.ADMIN),
     new UserClass(3, "Allison", "allison@email.com", UserRole.MEMBER, false)
@@ -15,7 +15,7 @@ let currentFilter: UserFilter = "all";
 let searchTerm = "";
 let isOrderedAZ = false;
 let nextId = userList.length > 0
-  ? Math.max(...userList.map(u => u.getId())) + 1
+  ? Math.max(...userList.map(u => u.id)) + 1
   : 1;
 
 // SET & GET
@@ -44,7 +44,7 @@ export function getNextId(): number {
 }
 
 // FUNCTION TO LOAD INITIAL USERS
-export function getUserList(): IUser[] {
+export function getUserList(): User[] {
     return userList;
 }
 
@@ -64,7 +64,7 @@ export function loadInitialUsers(): void {
     userList = [...userList, ...newUsers];
 }
 
-export function getVisibleUsers(): IUser[] {
+export function getVisibleUsers(): User[] {
     let users = userList.filter(user => {
         if (currentFilter === "active" && !user.active) return false;
         if (currentFilter === "inactive" && user.active) return false;
@@ -99,11 +99,11 @@ export function statistics() {
 
 // USER FUNCTIONS
 export function deleteUser(id: number): void {
-    userList = userList.filter(u => u.getId() !== id);
+    userList = userList.filter(u => u.id !== id);
 }
 
 export function toggleUserActive(id: number): void {
-    const user = userList.find(u => u.getId() === id);
+    const user = userList.find(u => u.id === id);
     if (user) user.toggleActive();
 }
 

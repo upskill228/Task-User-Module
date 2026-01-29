@@ -5,7 +5,7 @@ const btnClose = document.querySelector("#infoClose");
 // MODAL
 export function openUserModal(user) {
     modalBody.innerHTML = `
-        <p><strong>ID:</strong> ${user.getId()}</p>
+        <p><strong>ID:</strong> ${user.id}</p>
         <p><strong>Name:</strong> ${user.name}</p>
         <p><strong>Email:</strong> ${user.email}</p>
         <p><strong>Status:</strong> ${user.active ? "Active" : "Inactive"}</p>

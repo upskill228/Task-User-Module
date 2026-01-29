@@ -31,7 +31,7 @@ export class UserClass extends BaseEntity {
         return this.role;
     }
 
-    // SETTERS (com validação)
+    // SETTERS (validation)
     setEmail(email: string): void {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
