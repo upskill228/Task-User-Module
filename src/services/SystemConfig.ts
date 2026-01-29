@@ -1,0 +1,19 @@
+export class SystemConfig {
+    static appName: string = "TestApp";
+    static version: string = "1.0.0";
+    static environment: string = "development";
+
+static setEnvironment(env: string): void {
+        SystemConfig.environment = env;
+    }
+
+    
+static getInfo(): { appName: string; version: string; environment: string } {
+        return {
+            appName: SystemConfig.appName,
+            version: SystemConfig.version,
+            environment: SystemConfig.environment
+        };
+    }
+
+}
