@@ -1,14 +1,16 @@
 import { getTaskList } from "./taskService-new.js";
+import { getTasksFromUser } from "./AssignmentService.js";
 //Search tasks by title
 export function searchByTitle(text) {
+    if (!text.trim())
+        return [];
     const term = text.toLowerCase();
     return getTaskList().filter(task => task.title.toLowerCase().includes(term));
 }
 //Search tasks by userId
 export function searchByUser(userId) {
-    return getTaskList().filter(
-    // @ts-ignore — caso o userId não esteja tipado ainda
-    task => task.userId === userId);
+    const taskIds = new Set(getTasksFromUser(userId));
+    return getTaskList().filter(task => taskIds.has(task.id));
 }
 // Search tasks by status
 export function searchByStatus(status) {

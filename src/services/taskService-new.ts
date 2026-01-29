@@ -1,6 +1,7 @@
 import { TaskFilter } from "../types/taskFilter.js";
 import { ITask } from "../tasks/ITask.js";
 import { TaskClass } from "../tasks/TaskClass.js";
+import { TaskStatus } from "../tasks/TaskStatus.js";
 
 // ARRAY
 let taskList: ITask[] = [
@@ -47,14 +48,29 @@ export function getTaskList(): ITask[] {
 // TASKS
 export function getVisibleTasks(): ITask[] {
     let tasks = taskList.filter(task => {
-        if (currentFilter === "pending" && task.completed) return false;
-        if (currentFilter === "completed" && !task.completed) return false;
-        if (searchTerm && !task.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+
+        if (currentFilter === "completed" &&
+            task.status !== TaskStatus.COMPLETED) {
+            return false;
+        }
+        // pending = everything that isn't completed
+        if (currentFilter === "pending" &&
+            task.status === TaskStatus.COMPLETED) {
+            return false;
+        }
+
+        if (searchTerm &&
+            !task.title.toLowerCase().includes(searchTerm.toLowerCase())) {
+            return false;
+        }
+
         return true;
     });
 
     if (isOrderedAZ) {
-        tasks = [...tasks].sort((a, b) => a.title.localeCompare(b.title));
+        tasks = [...tasks].sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
     }
 
     return tasks;
@@ -70,11 +86,14 @@ export function deleteTask(id: number) {
 }
 
 export function clearCompletedTasks() {
-    taskList = taskList.filter(t => !t.completed);
+    taskList = taskList.filter(
+        task => task.status !== TaskStatus.COMPLETED
+    );
 }
 
 // COUNT PENDING TASKS
 export function countPendingTasks(): number {
-    return taskList.filter(t => !t.completed).length;
+    return taskList.filter(
+        task => task.status !== TaskStatus.COMPLETED
+    ).length;
 }
-

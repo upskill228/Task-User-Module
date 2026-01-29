@@ -1,9 +1,12 @@
 import { getTaskList } from "./taskService-new.js";
 import { ITask } from "../tasks/ITask.js";
 import { TaskStatus } from "../tasks/TaskStatus.js";
+import { getTasksFromUser } from "./AssignmentService.js";
 
 //Search tasks by title
 export function searchByTitle(text: string): ITask[] {
+    if (!text.trim()) return [];
+
     const term = text.toLowerCase();
 
     return getTaskList().filter(task =>
@@ -13,11 +16,13 @@ export function searchByTitle(text: string): ITask[] {
 
 //Search tasks by userId
 export function searchByUser(userId: number): ITask[] {
-    return getTaskList().filter(
-        // @ts-ignore — caso o userId não esteja tipado ainda
-        task => task.userId === userId
+    const taskIds = new Set(getTasksFromUser(userId));
+
+    return getTaskList().filter(task =>
+        taskIds.has(task.id)
     );
 }
+
 // Search tasks by status
 export function searchByStatus(status: TaskStatus): ITask[] {
     return getTaskList().filter(task => task.status === status);
