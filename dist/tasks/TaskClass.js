@@ -5,7 +5,6 @@ export class TaskClass {
         this.title = title;
         this.completed = false;
         this.status = TaskStatus.CREATED;
-        this.assignedUserIds = [];
     }
     getType() {
         return "default";

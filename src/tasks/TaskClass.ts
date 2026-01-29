@@ -6,15 +6,14 @@ export class TaskClass implements ITask {
     title: string;
     completed: boolean;
     status: TaskStatus;
-    assignedUserIds: number[];
 
     constructor(id: number, title: string) {
         this.id = id;
         this.title = title;
         this.completed = false;
         this.status = TaskStatus.CREATED;
-        this.assignedUserIds = [];
     }
+
 
     getType(): string {
         return "default";
