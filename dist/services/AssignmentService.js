@@ -23,3 +23,11 @@ export function getUsersFromTask(taskId) {
 export function getTasksFromUser(userId) {
     return Array.from(userToTasks.get(userId) || []);
 }
+//Statistics
+export function getAllAssignedUsers() {
+    const users = new Set();
+    for (const userSet of taskToUsers.values()) {
+        userSet.forEach(u => users.add(u));
+    }
+    return Array.from(users);
+}
