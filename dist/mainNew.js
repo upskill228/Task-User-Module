@@ -16,13 +16,13 @@ if (!GlobalValidators.isValidEmail(email)) {
     throw new Error("Email inválido");
 }
 SystemLogger.log("Email válido");
-const taskCompleted = false;
-const canComplete = BusinessRules.canTaskBeCompleted(taskCompleted);
+const isTaskBlocked = false;
+const canComplete = BusinessRules.canTaskBeCompleted(isTaskBlocked);
 if (canComplete) {
     SystemLogger.log("Task pode ser concluída");
 }
 else {
-    SystemLogger.log("Task NÃO pode ser concluída");
+    SystemLogger.log("Task está bloqueada e não pode ser concluída");
 }
 console.log("LOGS DO SISTEMA:");
 console.log(SystemLogger.getLogs());
