@@ -9,10 +9,10 @@ export class GlobalValidators {
     }
 
     static isPositiveNumber(value: number): boolean {
-        return value > 0;
+        return value >= 0;
     }
 
     static minLength(text: string, size: number): boolean {
-        return text.length >= size;
+        return text.trim().length >= size;
     }
 }
