@@ -1,8 +1,5 @@
 import { TaskStatus } from "../tasks/TaskStatus.js";
 import { getTasksFromUser, unassignUser } from "./AssignmentService.js";
-// Aqui assumimos que tens algum UserService ou uma lista de users
-// Para o exemplo, vamos usar apenas userId: number
-// E vamos supor que existe uma função isUserInactive(userId)
 export function applyRules(task) {
     if (task.status === TaskStatus.COMPLETED) {
         logTaskCompleted(task);
@@ -26,17 +23,14 @@ function notifyTaskBlocked(task) {
     console.log(`Notification: Task ${task.id} is blocked.`);
 }
 function hasTaskExpired(task) {
-    // Placeholder: supõe que Task tem expiryDate: Date
-    // Se não tiver, podes usar createdAt + duração fictícia
-    return false; // implementar regra real depois
+    return false;
 }
 function moveTaskToBlocked(task) {
     task.moveTo(TaskStatus.BLOCKED);
-    notifyTaskBlocked(task); // opcional: notificar logo
+    notifyTaskBlocked(task);
 }
 function isUserInactive(userId) {
-    // Placeholder: supõe que tens user status
-    return false; // implementar regra real depois
+    return false;
 }
 function removeUserAssignments(userId) {
     const tasks = getTasksFromUser(userId);

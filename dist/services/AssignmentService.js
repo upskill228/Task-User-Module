@@ -23,7 +23,7 @@ export function getUsersFromTask(taskId) {
 export function getTasksFromUser(userId) {
     return Array.from(userToTasks.get(userId) || []);
 }
-//Statistics
+// Statistics
 export function getAllAssignedUsers() {
     const users = new Set();
     for (const userSet of taskToUsers.values()) {

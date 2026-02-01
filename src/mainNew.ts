@@ -1,40 +1,27 @@
-import { SystemConfig } from "./services/SystemConfig.js";
-import { IdGenerator } from "./utils/IdGenerator.js";
-import { SystemLogger } from "./logs/SystemLogger.js";
-import { GlobalValidators } from "./utils/GlobalValidators.js";
-import { BusinessRules } from "./services/BusinessRules.js";
+// mainNew.ts
 
-SystemConfig.setEnvironment("development");
-SystemLogger.log("Sistema configurado");
-
-console.log(SystemConfig.getInfo());
-
-const userId = IdGenerator.generate();
-const taskId = IdGenerator.generate();
-
-SystemLogger.log(`User criado com ID: ${userId}`);
-SystemLogger.log(`Task criada com ID: ${taskId}`);
-
-const email = "user@email.com";
-
-if (!GlobalValidators.isValidEmail(email)) {
-    SystemLogger.log("Email inválido");
-} else {
-    SystemLogger.log("Email válido");
-}
+import { EntityList } from "./utils/EntityList.js";
+import { UserClass } from "./models/UserClass.js";
+import { TaskClass } from "./tasks/TaskClass.js";
+import { UserRole } from "./security/UserRole.js";
 
 
-SystemLogger.log("Email válido");
+const user1 = new UserClass(1, "ana@email.com", UserRole.MEMBER);
+const user2 = new UserClass(2, "bruno@email.com", UserRole.ADMIN);
 
-const isTaskBlocked = false;
+const task1 = new TaskClass(1, "Estudar TypeScript");
+const task2 = new TaskClass(2, "Fazer exercícios");
 
-const canComplete = BusinessRules.canTaskBeCompleted(isTaskBlocked);
+const userList = new EntityList<UserClass>();
+userList.add(user1);
+userList.add(user2);
 
-if (canComplete) {
-    SystemLogger.log("Task pode ser concluída");
-} else {
-    SystemLogger.log("Task está bloqueada e não pode ser concluída");
-}
+const taskList = new EntityList<TaskClass>();
+taskList.add(task1);
+taskList.add(task2);
 
-console.log("LOGS DO SISTEMA:");
-console.log(SystemLogger.getLogs());
+console.log("UTILIZADORES:");
+console.log(userList.getAll());
+
+console.log("TAREFAS:");
+console.log(taskList.getAll());
