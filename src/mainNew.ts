@@ -19,8 +19,10 @@ const email = "user@email.com";
 
 if (!GlobalValidators.isValidEmail(email)) {
     SystemLogger.log("Email inválido");
-    throw new Error("Email inválido");
+} else {
+    SystemLogger.log("Email válido");
 }
+
 
 SystemLogger.log("Email válido");
 
