@@ -5,8 +5,10 @@ import { UserRole } from "./security/UserRole.js";
 import { SimpleCache } from "./utils/SimpleCache.js";
 import { Favorites } from "./utils/Favorites.js";
 import { Paginator } from "./utils/Paginator.js";
+import { TagManager } from "./utils/TagManager.js";
+import { WatcherSystem } from "./utils/WatcherSystem.js";
 
-// CRIAÇÃO DE ENTIDADES
+// ENTITIES / ELEMENTS
 const user1 = new UserClass(1, "anna@email.com", UserRole.MEMBER);
 const user2 = new UserClass(2, "faith@email.com", UserRole.ADMIN);
 const user3 = new UserClass(3, "john@email.com", UserRole.MEMBER);
@@ -77,3 +79,33 @@ console.log(page1);
 
 console.log("User Page 2");
 console.log(page2);
+
+// TAG MANAGER
+const tagManager = new TagManager<TaskClass>();
+
+tagManager.addTag(task1, 'urgent');
+tagManager.addTag(task1, 'backend');
+console.log(tagManager.getTags(task1));
+
+const userTagManager = new TagManager<UserClass>();
+
+userTagManager.addTag(user1, "admin");
+userTagManager.addTag(user1, "remote");
+
+console.log(userTagManager.getTags(user1));
+
+// WATCHER SYSTEM
+const watcherSystem = new WatcherSystem<TaskClass, UserClass>();
+const userFollowerSystem = new WatcherSystem<UserClass, UserClass>();
+
+watcherSystem.watch(task1, user1);
+watcherSystem.watch(task1, user2);
+console.log("Followers of task 1:");
+console.log(watcherSystem.getWatchers(task1).map(u => u.getEmail())
+);
+
+userFollowerSystem.watch(user1, user2);
+userFollowerSystem.watch(user1, user3);
+console.log("Followers of user 1");
+console.log(userFollowerSystem.getWatchers(user1).map(u => u.getEmail())
+);
