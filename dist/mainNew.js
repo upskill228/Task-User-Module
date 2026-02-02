@@ -7,6 +7,8 @@ import { Favorites } from "./utils/Favorites.js";
 import { Paginator } from "./utils/Paginator.js";
 import { TagManager } from "./utils/TagManager.js";
 import { WatcherSystem } from "./utils/WatcherSystem.js";
+import { PriorityManager } from "./utils/PriorityManager.js";
+import { RatingSystem } from "./utils/RatingSystem.js";
 // ENTITIES / ELEMENTS
 const user1 = new UserClass(1, "anna@email.com", UserRole.MEMBER);
 const user2 = new UserClass(2, "faith@email.com", UserRole.ADMIN);
@@ -81,3 +83,13 @@ userFollowerSystem.watch(user1, user2);
 userFollowerSystem.watch(user1, user3);
 console.log("Followers of user 1");
 console.log(userFollowerSystem.getWatchers(user1).map(u => u.getEmail()));
+// PRIORITY MANAGER
+const priorityManager = new PriorityManager();
+priorityManager.setPriority(task1, 5);
+priorityManager.setPriority(task2, 1);
+console.log(priorityManager.getPriority(task1));
+// RATING SYSTEM
+const ratingSystem = new RatingSystem();
+ratingSystem.rate(task1, 5);
+ratingSystem.rate(task1, 3);
+console.log(ratingSystem.getAverage(task1));
