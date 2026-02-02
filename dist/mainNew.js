@@ -9,6 +9,7 @@ import { TagManager } from "./utils/TagManager.js";
 import { WatcherSystem } from "./utils/WatcherSystem.js";
 import { PriorityManager } from "./utils/PriorityManager.js";
 import { RatingSystem } from "./utils/RatingSystem.js";
+import { DependencyGraph } from "./utils/DependencyGraph.js";
 // ENTITIES / ELEMENTS
 const user1 = new UserClass(1, "anna@email.com", UserRole.MEMBER);
 const user2 = new UserClass(2, "faith@email.com", UserRole.ADMIN);
@@ -67,10 +68,12 @@ console.log(page2);
 const tagManager = new TagManager();
 tagManager.addTag(task1, 'urgent');
 tagManager.addTag(task1, 'backend');
+console.log("Tags for task 1:");
 console.log(tagManager.getTags(task1));
 const userTagManager = new TagManager();
 userTagManager.addTag(user1, "admin");
 userTagManager.addTag(user1, "remote");
+console.log("Tags for user 1:");
 console.log(userTagManager.getTags(user1));
 // WATCHER SYSTEM
 const watcherSystem = new WatcherSystem();
@@ -87,9 +90,17 @@ console.log(userFollowerSystem.getWatchers(user1).map(u => u.getEmail()));
 const priorityManager = new PriorityManager();
 priorityManager.setPriority(task1, 5);
 priorityManager.setPriority(task2, 1);
+console.log("Priority of task 1:");
 console.log(priorityManager.getPriority(task1));
 // RATING SYSTEM
 const ratingSystem = new RatingSystem();
 ratingSystem.rate(task1, 5);
 ratingSystem.rate(task1, 3);
+console.log("Average rating of task 1:");
 console.log(ratingSystem.getAverage(task1));
+// DEPENDENCY GRAPH
+const depGraph = new DependencyGraph();
+depGraph.addDependency(task2, task1);
+depGraph.addDependency(task3, task2);
+console.log("Dependencies of task 2:");
+console.log(depGraph.getDependencies(task2));
