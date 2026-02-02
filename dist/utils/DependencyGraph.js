@@ -3,15 +3,19 @@ export class DependencyGraph {
         this.graph = new Map();
     }
     addDependency(item, dependsOn) {
-        if (!this.graph.has(item)) {
-            this.graph.set(item, []);
+        var _a;
+        const deps = (_a = this.graph.get(item)) !== null && _a !== void 0 ? _a : [];
+        if (!deps.includes(dependsOn)) {
+            deps.push(dependsOn);
         }
-        this.graph.get(item).push(dependsOn);
+        this.graph.set(item, deps);
     }
     getDependencies(item) {
-        return this.graph.get(item) || [];
+        var _a;
+        return (_a = this.graph.get(item)) !== null && _a !== void 0 ? _a : [];
     }
     hasDependencies(item) {
-        return this.graph.has(item) && (this.graph.get(item).length > 0);
+        var _a, _b;
+        return ((_b = (_a = this.graph.get(item)) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) > 0;
     }
 }

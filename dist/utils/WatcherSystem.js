@@ -11,9 +11,8 @@ export class WatcherSystem {
         this.watchers.set(target, users);
     }
     unwatch(target, user) {
-        const users = this.watchers.get(target);
-        if (!users)
-            return;
+        var _a;
+        const users = (_a = this.watchers.get(target)) !== null && _a !== void 0 ? _a : [];
         this.watchers.set(target, users.filter(u => u !== user));
     }
     getWatchers(target) {

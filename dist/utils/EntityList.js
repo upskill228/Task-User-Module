@@ -6,6 +6,6 @@ export class EntityList {
         this.items.push(item);
     }
     getAll() {
-        return this.items;
+        return [...this.items];
     }
 }

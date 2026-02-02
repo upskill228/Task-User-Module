@@ -3,23 +3,23 @@ export class RatingSystem {
         this.ratings = new Map();
     }
     rate(item, value) {
-        if (value < 1 || value > 5) {
-            throw new Error("Rating value must be between 1 and 5.");
-        }
-        if (!this.ratings.has(item)) {
-            this.ratings.set(item, []);
-        }
-        this.ratings.get(item).push(value);
+        var _a;
+        if (value < 1 || value > 5)
+            return;
+        const values = (_a = this.ratings.get(item)) !== null && _a !== void 0 ? _a : [];
+        values.push(value);
+        this.ratings.set(item, values);
     }
     getAverage(item) {
-        const itemRatings = this.ratings.get(item);
-        if (!itemRatings || itemRatings.length === 0) {
+        var _a;
+        const values = (_a = this.ratings.get(item)) !== null && _a !== void 0 ? _a : [];
+        if (values.length === 0)
             return 0;
-        }
-        const sum = itemRatings.reduce((acc, val) => acc + val, 0);
-        return Number((sum / itemRatings.length).toFixed(2));
+        const sum = values.reduce((a, b) => a + b, 0);
+        return Number((sum / values.length).toFixed(2));
     }
     getRatings(item) {
-        return this.ratings.get(item) || [];
+        var _a;
+        return (_a = this.ratings.get(item)) !== null && _a !== void 0 ? _a : [];
     }
 }

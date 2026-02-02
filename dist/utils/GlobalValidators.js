@@ -7,7 +7,7 @@ export class GlobalValidators {
         return text.trim().length > 0;
     }
     static isPositiveNumber(value) {
-        return value >= 0;
+        return value > 0;
     }
     static minLength(text, size) {
         return text.trim().length >= size;

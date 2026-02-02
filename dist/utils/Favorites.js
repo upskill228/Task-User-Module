@@ -14,6 +14,6 @@ export class Favorites {
         return this.items.includes(item);
     }
     getAll() {
-        return this.items;
+        return [...this.items];
     }
 }

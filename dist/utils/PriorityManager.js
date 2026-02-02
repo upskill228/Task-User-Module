@@ -12,4 +12,3 @@ export class PriorityManager {
         return new Map(this.priorities);
     }
 }
-;
