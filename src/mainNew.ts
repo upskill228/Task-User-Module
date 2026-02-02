@@ -1,38 +1,111 @@
-import { SystemConfig } from "./services/SystemConfig.js";
-import { IdGenerator } from "./utils/IdGenerator.js";
-import { SystemLogger } from "./logs/SystemLogger.js";
-import { GlobalValidators } from "./utils/GlobalValidators.js";
-import { BusinessRules } from "./services/BusinessRules.js";
+import { EntityList } from "./utils/EntityList.js";
+import { UserClass } from "./models/UserClass.js";
+import { TaskClass } from "./tasks/TaskClass.js";
+import { UserRole } from "./security/UserRole.js";
+import { SimpleCache } from "./utils/SimpleCache.js";
+import { Favorites } from "./utils/Favorites.js";
+import { Paginator } from "./utils/Paginator.js";
+import { TagManager } from "./utils/TagManager.js";
+import { WatcherSystem } from "./utils/WatcherSystem.js";
 
-SystemConfig.setEnvironment("development");
-SystemLogger.log("Sistema configurado");
+// ENTITIES / ELEMENTS
+const user1 = new UserClass(1, "anna@email.com", UserRole.MEMBER);
+const user2 = new UserClass(2, "faith@email.com", UserRole.ADMIN);
+const user3 = new UserClass(3, "john@email.com", UserRole.MEMBER);
+const user4 = new UserClass(4, "lisa@email.com", UserRole.ADMIN);
 
-console.log(SystemConfig.getInfo());
+const task1 = new TaskClass(1, "Mock task number X");
+const task2 = new TaskClass(2, "Made-up task number Y");
+const task3 = new TaskClass(3, "Another task Z");
 
-const userId = IdGenerator.generate();
-const taskId = IdGenerator.generate();
+// ENTITY LIST
+const userList = new EntityList<UserClass>();
+userList.add(user1);
+userList.add(user2);
+userList.add(user3);
+userList.add(user4);
 
-SystemLogger.log(`User criado com ID: ${userId}`);
-SystemLogger.log(`Task criada com ID: ${taskId}`);
+const taskList = new EntityList<TaskClass>();
+taskList.add(task1);
+taskList.add(task2);
+taskList.add(task3);
 
-const email = "user@email.com";
+console.log("Users");
+console.log(userList.getAll());
 
-if (!GlobalValidators.isValidEmail(email)) {
-    SystemLogger.log("Email inválido");
-    throw new Error("Email inválido");
-}
+console.log("Tasks");
+console.log(taskList.getAll());
 
-SystemLogger.log("Email válido");
+// SIMPLE CACHE
+const userCache = new SimpleCache<number, UserClass>();
+userCache.set(user1.getId(), user1);
+userCache.set(user2.getId(), user2);
 
-const isTaskBlocked = false;
+console.log("User Cache");
+console.log(userCache.get(user1.getId()));
+console.log(userCache.get(user2.getId()));
 
-const canComplete = BusinessRules.canTaskBeCompleted(isTaskBlocked);
+const taskCache = new SimpleCache<number, TaskClass>();
+taskCache.set(task1.id, task1);
+taskCache.set(task2.id, task2);
 
-if (canComplete) {
-    SystemLogger.log("Task pode ser concluída");
-} else {
-    SystemLogger.log("Task está bloqueada e não pode ser concluída");
-}
+console.log("Task Cache");
+console.log(taskCache.get(task1.id));
+console.log(taskCache.get(task2.id));
 
-console.log("LOGS DO SISTEMA:");
-console.log(SystemLogger.getLogs());
+// FAVORITES
+const favUsers = new Favorites<UserClass>();
+favUsers.add(user1);
+favUsers.add(user2);
+favUsers.remove(user1);
+
+console.log("Favorite Users");
+console.log(favUsers.getAll());
+
+const favTasks = new Favorites<TaskClass>();
+favTasks.add(task3);
+
+console.log("Favorite Tasks");
+console.log(favTasks.exists(task3));
+
+// PAGINATOR
+const paginator = new Paginator<UserClass>();
+
+const page1 = paginator.paginate(userList.getAll(), 1, 2);
+const page2 = paginator.paginate(userList.getAll(), 2, 2);
+
+console.log("User Page 1");
+console.log(page1);
+
+console.log("User Page 2");
+console.log(page2);
+
+// TAG MANAGER
+const tagManager = new TagManager<TaskClass>();
+
+tagManager.addTag(task1, 'urgent');
+tagManager.addTag(task1, 'backend');
+console.log(tagManager.getTags(task1));
+
+const userTagManager = new TagManager<UserClass>();
+
+userTagManager.addTag(user1, "admin");
+userTagManager.addTag(user1, "remote");
+
+console.log(userTagManager.getTags(user1));
+
+// WATCHER SYSTEM
+const watcherSystem = new WatcherSystem<TaskClass, UserClass>();
+const userFollowerSystem = new WatcherSystem<UserClass, UserClass>();
+
+watcherSystem.watch(task1, user1);
+watcherSystem.watch(task1, user2);
+console.log("Followers of task 1:");
+console.log(watcherSystem.getWatchers(task1).map(u => u.getEmail())
+);
+
+userFollowerSystem.watch(user1, user2);
+userFollowerSystem.watch(user1, user3);
+console.log("Followers of user 1");
+console.log(userFollowerSystem.getWatchers(user1).map(u => u.getEmail())
+);

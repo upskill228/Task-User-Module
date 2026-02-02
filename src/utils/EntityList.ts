@@ -1,5 +1,5 @@
 export class EntityList<T> {
-    private items: T[] = []
+    private items: T[] = [];
 
     add(item: T): void {
         this.items.push(item);
